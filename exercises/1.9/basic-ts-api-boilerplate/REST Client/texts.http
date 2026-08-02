@@ -1,0 +1,81 @@
+@baseUrl = http://localhost:3000
+
+### READ ALL TEXTS 
+GET {{baseUrl}}/texts
+
+### READ ALL TEXTS AT LEVEL EASY 
+GET {{baseUrl}}/texts/?level=easy
+
+### GET BY ID
+GET {{baseUrl}}/texts/4df1912c-5ac2-4fe0-ad2b-4bb9b4499916
+
+### CREATE A TEXT 
+POST {{baseUrl}}/texts
+Content-Type: application/json
+
+{
+    "content": "Learning TypeScript makes JavaScript applications more robust.",
+  "level": "medium"
+}
+
+### CREATE ONE (INVALID LEVEL)
+POST {{baseUrl}}/texts
+Content-Type: application/json
+
+{
+  "content": "This request should fail.",
+  "level": "expert"
+}
+
+### CREATE ONE (MISSING CONTENT)
+POST {{baseUrl}}/texts
+Content-Type: application/json
+
+{
+  "level": "easy"
+}
+
+### DELETE ONE
+DELETE {{baseUrl}}/texts/bb793072-bf1b-40ed-921b-689921144253
+
+### DELETE ONE (NOT FOUND)
+DELETE {{baseUrl}}/texts/00000000-0000-0000-0000-000000000000
+
+### PUT (UPDATE)
+PUT {{baseUrl}}/texts/af0cb825-12b5-4450-8a1d-d07345c252d0
+Content-Type: application/json
+
+{
+  "content": "This text has been completely replaced.",
+  "level": "hard"
+}
+
+### PUT (CREATE)
+PUT {{baseUrl}}/texts/11111111-1111-1111-1111-111111111111
+Content-Type: application/json
+
+{
+  "content": "A brand new text created with PUT.",
+  "level": "easy"
+}
+
+
+### PUT (INVALID)
+PUT {{baseUrl}}/texts/11111111-1111-1111-1111-111111111111
+Content-Type: application/json
+
+{
+  "content": "",
+  "level": "easy"
+}
+
+###
+
+### PUT (INVALID LEVEL)
+PUT {{baseUrl}}/texts/11111111-1111-1111-1111-111111111111
+Content-Type: application/json
+
+{
+  "content": "Hello world",
+  "level": "very-hard"
+}
