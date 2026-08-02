@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:3000
+
+### GET ALL FILMS 
+GET {{baseUrl}}/films
+
+### GET FILM BY ID
+GET {{baseUrl}}/films/2
+
+### GET FILMS WITH DURATION OF MINIMUM 60 MIN 
+GET {{baseUrl}}/films/?duration-min=60
+
+### CREATE A NEW FILM
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title": "The Shawshank Redemption",
+    "director": "Frank Darabont",
+    "duration": 142,
+    "budget": 25,
+    "description": "Deux hommes se lient d'amitié dans une prison et gardent espoir malgré les années.",
+    "imageUrl": "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"
+}
