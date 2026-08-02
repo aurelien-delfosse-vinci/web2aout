@@ -30,3 +30,15 @@ Content-Type: application/json
     "volume":0.25,
     "price":4.5    
 }
+
+###DELETE A DRINK
+DELETE {{baseURL}}/drinks/2
+
+
+### UPDATE A DRINK 
+PATCH {{baseURL}}/drinks/5
+Content-Type: application/json
+
+{
+    "title" : "Citronnade"
+}
