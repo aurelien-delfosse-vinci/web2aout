@@ -1,0 +1,44 @@
+@baseURL = http://localhost:3000
+
+
+### READ ALL DRINKS
+GET {{baseURL}}/drinks
+
+### READ DRINK BY ID 
+GET {{baseURL}}/drinks/3
+
+### READ ALL DRINKS UNDER BUDGET-MAX€
+GET {{baseURL}}/drinks/?budget-max=3
+
+### CREATE A NEW DRINK
+POST {{baseURL}}/drinks
+Content-Type: application/json
+
+{
+    "title":"Virgin Tonic",
+    "image":"https://plus.unsplash.com/premium_photo-1668771899398-1cdd763f745e?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "volume":0.25,
+    "price":4.5
+}
+
+### Try to create a drink with incomplete data
+POST {{baseURL}}/drinks
+Content-Type: application/json
+
+{
+    "title":"Missing Data Drink",
+    "volume":0.25,
+    "price":4.5    
+}
+
+###DELETE A DRINK
+DELETE {{baseURL}}/drinks/2
+
+
+### UPDATE A DRINK 
+PATCH {{baseURL}}/drinks/5
+Content-Type: application/json
+
+{
+    "title" : "Citronnade"
+}
