@@ -142,7 +142,6 @@ router.patch("/:id", (req,res) => {
       if(price){
         drink.price = price;
       }
-
       return res.json(drink);
 });
 
