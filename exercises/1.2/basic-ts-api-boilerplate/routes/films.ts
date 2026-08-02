@@ -42,7 +42,7 @@ const router = Router();
 let counter = 0;
 router.get('/', (_req, res) => {
   counter++;
-  console.log("GET COUNTER : " + counter);
+  console.log(_req.method + " COUNTER : " + counter);
   return res.json(defaultFilms);
 });
 export default router;
