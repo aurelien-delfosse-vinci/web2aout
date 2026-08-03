@@ -1,0 +1,32 @@
+.user-card{
+    width: 280px;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-card:hover{
+    transform: translateY(-5px);
+    color: blueviolet;
+}
+
+.user-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.user-card p {
+    font-size: 1rem;
+    margin: 8px 0;
+}
+
+.online {
+    color:green;
+    font-weight: bold;
+}
+
+.offline{
+    color: red;
+    font-weight: bold;
+}
