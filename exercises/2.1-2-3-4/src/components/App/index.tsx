@@ -1,8 +1,11 @@
 import Cinema from "../Cinema";
+import Footer from "../Footer";
+import Header from "../Header";
 import PageTitle from "../PageTitle";
 
 const App = () => {
   const pageTitle = "Informations sur les films dans les cinémas";
+  const image = "https://unsplash.com/photos/a-lamb-logo-on-a-black-background-ze5wHM9kplc";
 
   const cinema1Name = "UGC DeBrouckère";
 
@@ -49,11 +52,17 @@ const moviesCinema2 = [
   
   return (
     <div>
-      <PageTitle title={pageTitle} />
+      
+      <Header image={image}>
+        <PageTitle title={pageTitle} />
+      </Header>
 
       <Cinema name={cinema1Name} movies= {moviesCinema1} />
 
       <Cinema name={cinema2Name} movies={moviesCinema2} />
+      <Footer image={image}>
+        <p>© 2026 - Application Cinéma</p>
+      </Footer>
     </div>
   );
 };
