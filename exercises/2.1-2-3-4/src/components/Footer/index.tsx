@@ -1,5 +1,5 @@
 interface FooterProps {
-    children: React.ReactElement;
+    children: React.ReactNode;
     image:string;
 }
 

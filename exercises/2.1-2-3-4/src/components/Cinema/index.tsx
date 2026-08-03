@@ -21,7 +21,7 @@ const Cinema = (props:CinemaProps) => {
             </thead>
             <tbody>
                 {props.movies.map((movie) => (
-                    <tr>
+                    <tr key={movie.title}>
                         <td>{movie.title}</td>
                         <td>{movie.director}</td>
                     </tr>

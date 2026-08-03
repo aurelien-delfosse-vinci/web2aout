@@ -1,5 +1,5 @@
 interface HeaderProps {
-    children: React.ReactElement;
+    children: React.ReactNode;
     image:string;
 }
 
