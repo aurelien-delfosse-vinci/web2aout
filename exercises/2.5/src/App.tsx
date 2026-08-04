@@ -3,15 +3,23 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-const ClickCounter = () => {
+interface ClickCounterProps {
+  title: string;
+  message: string;
+}
+const ClickCounter = ({title, message}:ClickCounterProps) => {
   const [count, setCount] = useState(0);
 
   return(
     <div>
+
+      <h2>{title}</h2>
+
       <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+      {count >= 10 && <p>{message}</p>}
     </div>
-  )
-}
+  );
+};
 
 function App() {
   
@@ -27,10 +35,11 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <ClickCounter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <ClickCounter 
+        title="Click Counter" 
+        message='You are a master in the art of clicking !'
+        />
+        
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
