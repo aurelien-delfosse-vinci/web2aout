@@ -122,4 +122,4 @@ const nextPizzaId = (pizzas:Pizza[]) => {
   return pizzas.reduce((maxId, pizza) => Math.max(maxId,pizza.id), 0) + 1;
 };
 
-export default Main;
+export {Main};
