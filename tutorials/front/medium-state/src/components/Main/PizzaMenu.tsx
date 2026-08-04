@@ -1,4 +1,4 @@
-import Pizza from "../../types";
+import {Pizza} from "../../types";
 import "./PizzaMenu.css"
 
 interface PizzaMenuProps {

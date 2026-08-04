@@ -1,10 +1,11 @@
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import sound from "../../assets/sounds/Infecticide-11-Pizza-Spinoza.mp3";
 import DrinkCard from "./DrinkCard";
 import DrinkMenu from "./DrinkMenu";
 import "./main.css";
 import PizzaMenu from "./PizzaMenu";
-import Pizza from "../../types";
+import {NewPizza, Pizza} from "../../types";
+import AddPizza from "./AddPizza";
 
 
 const defaultPizzas = [
@@ -36,33 +37,13 @@ const defaultPizzas = [
 ];
 
 const Main = () => {
-  const [pizza, setPizza] = useState("");
-  const [description, setDescription] = useState("");
+  
   const [pizzas, setPizzas] = useState(defaultPizzas);
 
-  const handlePizzaChange = (e:SyntheticEvent) => {
-    const pizzaInput = e.target as HTMLInputElement;
-    console.log("change in pizzaInput:", pizzaInput.value);
-    setPizza(pizzaInput.value);
-  }
-
-  const handleDescriptionChange = (e:SyntheticEvent) => {
-    const descriptionInput = e.target as HTMLInputElement;
-    console.log("change in descriptionInput: ", descriptionInput.value);
-    setDescription(descriptionInput.value);
-  }
-
-  const handleSubmit = (event: SyntheticEvent ) =>  {
-    event.preventDefault();
-    console.log("submit:", pizza, description);
-    const newPizza = {
-      id: nextPizzaId(pizzas),
-      title: pizza,
-      content: description,
-    };
-    setPizzas([...pizzas, newPizza]);
-  }
-
+  const addPizza = (newPizza:NewPizza) => {
+    const pizzaAdded = {...newPizza, id:nextPizzaId(pizzas)};
+    setPizzas([...pizzas, pizzaAdded]);
+  };
 
   return (
     <main>
@@ -77,20 +58,7 @@ const Main = () => {
         Your browser does not support the audio element.
       </audio>
       <PizzaMenu pizzas={pizzas}/>
-      <div>
-        <br />
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="pizza">Pizza</label>
-          <br />
-          <input type="text" id="pizza" name="pizza" onChange={handlePizzaChange} required  />
-          <br />
-          <label htmlFor="description">Description</label>
-          <br />
-          <input type="text" id="description" name="description" onChange={handleDescriptionChange} required />
-          <br />
-          <button type="submit">Ajouter</button>
-        </form>
-      </div>
+      <AddPizza addPizza={addPizza}/>
       <DrinkMenu title="Notre Menu de Boissons">
         <DrinkCard
           title="Coca-Cola"
