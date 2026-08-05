@@ -22,7 +22,7 @@ const MovieMenu = ({ movies }: MovieMenuProps) => {
       </thead>
       <tbody>
         {movies.map((movie) => (
-          <tr key={movie.title}>
+          <tr key={movie.id}>
             <td>{movie.title}</td>
             <td>{movie.director}</td>
             <td>{movie.duration} min</td>
