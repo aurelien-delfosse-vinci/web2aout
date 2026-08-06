@@ -36,6 +36,7 @@ const App = () => {
 
   useEffect(() => {
     fetchPizzas();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchPizzas = async () => {
