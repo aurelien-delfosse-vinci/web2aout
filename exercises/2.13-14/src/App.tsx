@@ -10,9 +10,7 @@ interface Joke {
 function App() {
   const [joke, setJoke] = useState<Joke | null>(null); 
   
-  
-  useEffect(() => {
-
+  const fetchjoke = () => {
     fetch("https://v2.jokeapi.dev/joke/Any?type=single")
     .then((response) => {
       if(!response.ok)
@@ -22,6 +20,16 @@ function App() {
     .catch((err) => {
       console.error("HomePage::error : ", err);
     })
+  }
+  
+  useEffect(() => {
+    fetchjoke();
+
+    const interval = setInterval(() => {
+      fetchjoke();
+    }, 10000)
+    
+    return () => clearInterval(interval);
   }, []);
 
   if(!joke) return <p>Chargement...</p>
