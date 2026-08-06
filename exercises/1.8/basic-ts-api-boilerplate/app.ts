@@ -6,6 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/films", filmRouter);
+app.use("/movies", filmRouter);
 
 export default app;

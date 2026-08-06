@@ -80,14 +80,14 @@ const App = () => {
 
       if (!response.ok)
         throw new Error(
-          `fetch error: ${response.status} : ${response.statusText}`,
+          `fetch error: ${response.status} : ${response.statusText}`
         );
 
       const createdPizza = await response.json();
 
       setPizzas([...pizzas, createdPizza]);
     } catch (err) {
-      console.log("AddPizzaPage::error : ", err);
+      console.error("AddPizzaPage::error : ", err);
     }
   };
 

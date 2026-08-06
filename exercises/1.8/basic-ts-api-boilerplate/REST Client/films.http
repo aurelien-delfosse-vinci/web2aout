@@ -1,16 +1,16 @@
 @baseUrl = http://localhost:3000
 
 ### GET ALL FILMS 
-GET {{baseUrl}}/films
+GET {{baseUrl}}/movies
 
 ### GET FILM BY ID
-GET {{baseUrl}}/films/2
+GET {{baseUrl}}/movies/2
 
 ### GET FILMS WITH DURATION OF MINIMUM 60 MIN 
-GET {{baseUrl}}/films/?duration-min=60
+GET {{baseUrl}}/movies/?duration-min=60
 
 ### CREATE A NEW FILM
-POST {{baseUrl}}/films
+POST {{baseUrl}}/movies
 Content-Type: application/json
 
 {
@@ -23,11 +23,11 @@ Content-Type: application/json
 }
 
 ### DELETE A FILM BY ITS ID
-DELETE {{baseUrl}}/films/2
+DELETE {{baseUrl}}/movies/2
 
 
 ### update a film by id 
-PATCH {{baseUrl}}/films/3
+PATCH {{baseUrl}}/movies/3
 Content-Type: application/json
 
 {
@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ### update a film if id exists or create a film if id doesnt exist 
-PUT {{baseUrl}}/films/3
+PUT {{baseUrl}}/movies/3
 Content-Type: application/json
 
 {
@@ -48,7 +48,7 @@ Content-Type: application/json
 }
 
 ###
-PUT {{baseUrl}}/films/10 
+PUT {{baseUrl}}/movies/10 
 Content-Type: application/json
 
 {
@@ -61,7 +61,7 @@ Content-Type: application/json
 }
 
 ###
-PUT {{baseUrl}}/films/4
+PUT {{baseUrl}}/movies/4
 Content-Type: application/json
 
 {
