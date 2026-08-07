@@ -1,0 +1,73 @@
+@baseUrl = http://localhost:3000
+
+### GET ALL FILMS 
+GET {{baseUrl}}/movies
+
+### GET FILM BY ID
+GET {{baseUrl}}/movies/2
+
+### GET FILMS WITH DURATION OF MINIMUM 60 MIN 
+GET {{baseUrl}}/movies/?duration-min=60
+
+### CREATE A NEW FILM
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "title": "The Shawshank Redemption",
+    "director": "Frank Darabont",
+    "duration": 142,
+    "budget": 25,
+    "description": "Deux hommes se lient d'amitié dans une prison et gardent espoir malgré les années.",
+    "imageUrl": "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"
+}
+
+### DELETE A FILM BY ITS ID
+DELETE {{baseUrl}}/movies/2
+
+
+### update a film by id 
+PATCH {{baseUrl}}/movies/3
+Content-Type: application/json
+
+{
+    "title" : "uncharted"
+}
+
+### update a film if id exists or create a film if id doesnt exist 
+PUT {{baseUrl}}/movies/3
+Content-Type: application/json
+
+{
+  "title": "Gladiator",
+  "director": "Ridley Scott",
+  "duration": 155,
+  "budget": 103,
+  "description": "Un général romain trahi devient gladiateur et cherche à se venger.",
+  "imageUrl": "https://image.tmdb.org/t/p/original/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg"
+}
+
+###
+PUT {{baseUrl}}/movies/10 
+Content-Type: application/json
+
+{
+  "title": "Avatar",
+  "director": "James Cameron",
+  "duration": 162,
+  "budget": 237,
+  "description": "Un ancien marine rejoint le programme Avatar sur Pandora.",
+  "imageUrl": "https://image.tmdb.org/t/p/original/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg"
+}
+
+###
+PUT {{baseUrl}}/movies/4
+Content-Type: application/json
+
+{
+  "title": "Gladiator",
+  "duration": 155,
+  "budget": 103,
+  "description": "Un général romain trahi devient gladiateur et cherche à se venger.",
+  "imageUrl": "https://image.tmdb.org/t/p/original/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg"
+}
