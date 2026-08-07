@@ -23,11 +23,6 @@ interface Drink {
 
 type NewDrink = Omit<Drink, "id">;
 
-interface AuthenticatedUser {
-  username: string;
-  token: string;
-}
-
 interface Film {
   id: number;
   title: string;
@@ -39,6 +34,21 @@ interface Film {
 }
 
 type NewFilm = Omit<Film, "id">;
+
+interface Comment {
+  id: number;
+  filmId: number;
+  username: string;
+  content: string;
+}
+
+type NewComment = Omit<Comment, "id" | "username">;
+
+interface AuthenticatedUser {
+  username: string;
+  token: string;
+}
+
 
 interface User {
   id: number;
@@ -66,6 +76,8 @@ export type {
   NewDrink,
   Film,
   NewFilm,
+  Comment,
+  NewComment,
   AuthenticatedUser,
   User,
   PotentialUser,
