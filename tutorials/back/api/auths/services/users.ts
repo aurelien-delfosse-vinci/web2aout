@@ -24,7 +24,6 @@ async function login(username:string, password:string): Promise<AuthenticatedUse
     if(!userFound) return undefined;
     const passwordMatch = await bcrypt.compare(password, userFound.password);
     if(!passwordMatch) return undefined;
-    if(userFound.password !== password) return undefined;
 
     const token = jwt.sign(
         {username},
