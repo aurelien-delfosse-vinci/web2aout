@@ -45,14 +45,15 @@ const MovieMenu = ({ movies }: MovieMenuProps) => {
 
 const MovieListPage = () => {
   
-  const{movies}: MovieContext = useOutletContext();
+  const{movies, authenticatedUser}: MovieContext = useOutletContext();
   const navigate = useNavigate();
   return (
     <>
       <div>
         <h1>Mes films preferes</h1>
         <MovieMenu movies={movies} />
-        <button onClick={() => navigate('/addMoviePage')}>Ajouter un film</button>
+        {authenticatedUser && (<button onClick={() => navigate('/addMoviePage')}>Ajouter un film</button>
+      )}
       </div>
     </>
   );

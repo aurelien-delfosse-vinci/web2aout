@@ -31,7 +31,7 @@ app.use("/users", usersRouter);
 app.use("/pizzas", pizzaRouter);
 app.use("/drinks", drinkRouter);
 app.use("/auths", authsRouter);
-app.use("/films", filmsRouter);
+app.use("/movies", filmsRouter);
 app.use("/comments", commentRouter);
 
 
