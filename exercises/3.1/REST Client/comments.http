@@ -1,0 +1,137 @@
+@baseUrl = http://localhost:3000
+
+### =========================================================
+### AUTHENTIFICATION
+### =========================================================
+
+### Login admin
+# @name admin
+
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+
+### Récupérer le token admin
+@adminToken = {{admin.response.body.token}}
+
+
+### =========================================================
+### GET COMMENTS
+### =========================================================
+
+### Lire tous les commentaires
+GET {{baseUrl}}/comments
+Authorization: {{adminToken}}
+
+
+### Lire les commentaires du film 1
+GET {{baseUrl}}/comments?filmId=1
+Authorization: {{adminToken}}
+
+
+### Lire les commentaires d'un film qui n'existe probablement pas
+GET {{baseUrl}}/comments?filmId=999
+Authorization: {{adminToken}}
+
+
+### =========================================================
+### CREATE COMMENT
+### =========================================================
+
+### Créer un commentaire sur le film 1
+POST {{baseUrl}}/comments
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+  "filmId": 1,
+  "content": "Excellent film !"
+}
+
+
+### =========================================================
+### CREATE COMMENT - ERREURS
+### =========================================================
+
+### Créer un deuxième commentaire sur le même film
+### -> doit retourner 409
+POST {{baseUrl}}/comments
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+  "filmId": 1,
+  "content": "Je veux commenter une deuxième fois."
+}
+
+
+### Créer un commentaire sur un film inexistant
+### -> doit retourner 404
+POST {{baseUrl}}/comments
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+  "filmId": 999,
+  "content": "Ce film n'existe pas."
+}
+
+
+### Créer un commentaire sans filmId
+### -> doit retourner 400
+POST {{baseUrl}}/comments
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+  "content": "Commentaire sans film."
+}
+
+
+### Créer un commentaire sans contenu
+### -> doit retourner 400
+POST {{baseUrl}}/comments
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+  "filmId": 1,
+  "content": ""
+}
+
+
+### Créer un commentaire sans token
+### -> doit retourner 401
+POST {{baseUrl}}/comments
+Content-Type: application/json
+
+{
+  "filmId": 1,
+  "content": "Je ne suis pas authentifié."
+}
+
+
+### =========================================================
+### DELETE COMMENT
+### =========================================================
+
+### Supprimer son commentaire
+### Remplacez 1 par l'id réel du commentaire créé
+DELETE {{baseUrl}}/comments/1
+Authorization: {{adminToken}}
+
+
+### Supprimer un commentaire inexistant
+### -> doit retourner 404
+DELETE {{baseUrl}}/comments/999
+Authorization: {{adminToken}}
+
+
+### Supprimer sans token
+### -> doit retourner 401
+DELETE {{baseUrl}}/comments/1
