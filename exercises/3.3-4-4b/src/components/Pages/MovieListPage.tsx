@@ -8,7 +8,7 @@ interface MovieMenuProps {
 }
 
 const MovieMenu = ({ movies }: MovieMenuProps) => {
-  const {deleteMovie}: MovieContext = useOutletContext();
+  const {deleteMovie, authenticatedUser}: MovieContext = useOutletContext();
   return (
     <table>
       <thead>
@@ -35,7 +35,7 @@ const MovieMenu = ({ movies }: MovieMenuProps) => {
                 <img src={movie.imageUrl} alt={movie.title} width={100} />
               )}
             </td>
-            <button onClick={() => deleteMovie(movie.id)}>Supprimer</button>
+            {authenticatedUser && (<button onClick={() => deleteMovie(movie.id)}>Supprimer</button>)}
           </tr>
         ))}
       </tbody>
