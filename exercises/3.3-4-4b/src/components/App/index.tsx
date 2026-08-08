@@ -1,25 +1,36 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./Navbar";
-import type { AuthenticatedUser, MaybeAuthenticatedUser, Movie, MovieContext, NewMovie, User } from "../../types";
+import type {
+  AuthenticatedUser,
+  MaybeAuthenticatedUser,
+  Movie,
+  MovieContext,
+  NewMovie,
+  User,
+} from "../../types";
 import Header from "../Header";
 import PageTitle from "../PageTitle";
 import Footer from "../Footer";
-import { clearAuthenticatedUser, getAuthenticatedUser, storeAuthenticatedUser } from "../../utils/session";
+import {
+  clearAuthenticatedUser,
+  getAuthenticatedUser,
+  storeAuthenticatedUser,
+} from "../../utils/session";
 
 type Theme = "light" | "dark";
-
 
 const App = () => {
   const pageTitle = "Informations sur les films dans les cinémas";
   const image =
-  "https://unsplash.com/photos/a-lamb-logo-on-a-black-background-ze5wHM9kplc";
-  
-  const [authenticatedUser, setAuthenticatedUser] = useState<MaybeAuthenticatedUser>(undefined);
+    "https://unsplash.com/photos/a-lamb-logo-on-a-black-background-ze5wHM9kplc";
+
+  const [authenticatedUser, setAuthenticatedUser] =
+    useState<MaybeAuthenticatedUser>(undefined);
   const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem("theme");
 
-    if(savedTheme === "light"){
+    if (savedTheme === "light") {
       return "light";
     }
 
@@ -38,105 +49,149 @@ const App = () => {
   useEffect(() => {
     fetchMovies();
     const authenticatedUser = getAuthenticatedUser();
-    if(authenticatedUser) setAuthenticatedUser(authenticatedUser);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (authenticatedUser) setAuthenticatedUser(authenticatedUser);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchMovies = async () => {
-    try{
+    try {
       const movies = await getAllMovies();
       console.log(movies);
       setMovies(movies);
-    }catch(err){
-      console.error("HomePage::error: ",err);
+    } catch (err) {
+      console.error("HomePage::error: ", err);
     }
   };
 
   async function getAllMovies() {
-    try{
+    try {
       const response = await fetch("/api/movies");
 
-      if(!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+      if (!response.ok)
+        throw new Error(
+          `fetch error : ${response.status} : ${response.statusText}`,
+        );
       const pizzas = await response.json();
 
       return pizzas;
-    }catch(err){
+    } catch (err) {
       console.error("getAllMovies::error: ", err);
       throw err;
     }
-  };
+  }
   const addMovie = async (newMovie: NewMovie) => {
-    try{
-      if(!authenticatedUser) throw new Error("You must be authenticated to add a movie");
+    try {
+      if (!authenticatedUser)
+        throw new Error("You must be authenticated to add a movie");
       const options = {
         method: "POST",
         body: JSON.stringify(newMovie),
         headers: {
-          "Content-type":"application/json",
+          "Content-type": "application/json",
           Authorization: authenticatedUser.token,
         },
       };
 
       const response = await fetch("/api/movies", options);
-      if(!response.ok) throw new Error(`fetch error: ${response.status}: ${response.statusText}`);
+      if (!response.ok)
+        throw new Error(
+          `fetch error: ${response.status}: ${response.statusText}`,
+        );
 
       const createdMovie = await response.json();
 
       setMovies([...movies, createdMovie]);
-    }catch(err){
-      console.error("AddMoviePage::error : ", err)
+    } catch (err) {
+      console.error("AddMoviePage::error : ", err);
       throw err;
     }
-    
   };
 
   const deleteMovie = async (id: number) => {
-    try{
-      if(!authenticatedUser) throw new Error("you must be authenticated to remove a movie");
+    try {
+      if (!authenticatedUser)
+        throw new Error("you must be authenticated to remove a movie");
       const options = {
         method: "DELETE",
         headers: {
-          Authorization: authenticatedUser?.token}
+          Authorization: authenticatedUser.token,
+        },
       };
       const response = await fetch(`/api/movies/${id}`, options);
 
-      if(!response.ok) throw new Error(`Fetch error: ${response.status}: ${response.statusText}`);
+      if (!response.ok)
+        throw new Error(
+          `Fetch error: ${response.status}: ${response.statusText}`,
+        );
 
       await fetchMovies();
-
-    }catch(err){
+    } catch (err) {
       console.error("deleteMovie::error : ", err);
       throw err;
     }
-  }
+  };
 
+  const updateMovie = async (id: number, newMovie: NewMovie) => {
+    try {
+      if (!authenticatedUser)
+        throw new Error("You must be authenticated to update a movie");
+      const options = {
+        method: "PUT",
+        body: JSON.stringify(newMovie),
+        headers: {
+          "Content-type": "application/json",
+          Authorization: authenticatedUser.token,
+        },
+      };
 
-  const registerUser = async (newUser:User) =>{
-    try{
+      const response = await fetch(`/api/movies/${id}`, options);
+
+      if (!response.ok)
+        throw new Error(
+          `fetch error: ${response.status}: ${response.statusText}`,
+        );
+
+      const updatedMovie = await response.json();
+
+      setMovies((currentMovies) =>
+        currentMovies.map((movie) => (movie.id === id ? updatedMovie : movie)),
+      );
+      
+    } catch (err) {
+      console.error("updateMovie::error: ", err);
+      throw err;
+    }
+  };
+
+  const registerUser = async (newUser: User) => {
+    try {
       const options = {
         method: "POST",
         body: JSON.stringify(newUser),
         headers: {
-          "Content-type": 'application/json'
+          "Content-type": "application/json",
         },
       };
 
       const response = await fetch("/api/auths/register", options);
-      if(!response.ok) throw new Error(`fetch error: ${response.status} : ${response.statusText}`);
+      if (!response.ok)
+        throw new Error(
+          `fetch error: ${response.status} : ${response.statusText}`,
+        );
 
       const createdUser: AuthenticatedUser = await response.json();
 
       setAuthenticatedUser(createdUser);
       storeAuthenticatedUser(createdUser);
       console.log("createdUser: ", createdUser);
-    }catch(err){
+    } catch (err) {
       console.error("registerUser::error: ", err);
       throw err;
     }
   };
 
   const loginUser = async (user: User) => {
-    try{
+    try {
       const options = {
         method: "POST",
         body: JSON.stringify(user),
@@ -146,23 +201,26 @@ const App = () => {
       };
 
       const response = await fetch("/api/auths/login", options);
-      if(!response.ok) throw new Error(`fetch error: ${response.status} : ${response.statusText}`);
+      if (!response.ok)
+        throw new Error(
+          `fetch error: ${response.status} : ${response.statusText}`,
+        );
 
       const authenticatedUser: AuthenticatedUser = await response.json();
       console.log("authenticatedUser : ", authenticatedUser);
 
       setAuthenticatedUser(authenticatedUser);
       storeAuthenticatedUser(authenticatedUser);
-    }catch(err){
+    } catch (err) {
       console.error("loginUser::error: ", err);
       throw err;
     }
-  }
+  };
 
   const clearUser = () => {
     clearAuthenticatedUser();
     setAuthenticatedUser(undefined);
-  }
+  };
 
   const movieContext: MovieContext = {
     addMovie,
@@ -172,6 +230,7 @@ const App = () => {
     registerUser,
     loginUser,
     authenticatedUser,
+    updateMovie,
   };
 
   return (
@@ -180,7 +239,7 @@ const App = () => {
         <PageTitle title={pageTitle} />
       </Header>
       <div>
-        <NavBar authenticatedUser={authenticatedUser} clearUser={clearUser}/>
+        <NavBar authenticatedUser={authenticatedUser} clearUser={clearUser} />
         <Outlet context={movieContext} />
       </div>
       <Footer image={image} theme={theme}>

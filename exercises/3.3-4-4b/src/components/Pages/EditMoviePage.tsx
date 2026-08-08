@@ -1,10 +1,11 @@
 import { useState, type SyntheticEvent } from "react";
 import type { MovieContext } from "../../types";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 
-const AddMoviePage = () => {
+const EditMoviePage = () => {
   const navigate = useNavigate();
-  const { addMovie }: MovieContext = useOutletContext();
+  const { id } = useParams();
+  const { updateMovie }: MovieContext = useOutletContext();
   const [title, setTitle] = useState("");
   const [director, setDirector] = useState("");
   const [duration, setDuration] = useState(0);
@@ -12,9 +13,11 @@ const AddMoviePage = () => {
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState(0);
 
+  const movieId = Number(id);
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    addMovie({
+    updateMovie(movieId, {
       title: title,
       director: director,
       duration: duration,
@@ -89,7 +92,6 @@ const AddMoviePage = () => {
           required
         />
         <br />
-      
         <label htmlFor="description">Description</label>
         <input
           type="text"
@@ -114,13 +116,13 @@ const AddMoviePage = () => {
           onChange={handleImageChange}
         />
         <br />
-        <button type="submit" onClick={handleSubmit}>
-          Submit
+        <button type="submit">Submit</button>
+        <button type="button" onClick={() => navigate("/movieListPage")}>
+          Annuler
         </button>
-        <button onClick={() => navigate("/movieListPage")}>Annuler</button>
       </form>
     </div>
   );
 };
 
-export default AddMoviePage;
+export default EditMoviePage;

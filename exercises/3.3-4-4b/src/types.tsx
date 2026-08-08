@@ -18,6 +18,7 @@ interface MovieContext{
   registerUser: (newUser: User) => Promise<void>;
   loginUser: (user:User) => Promise<void>;
   authenticatedUser: MaybeAuthenticatedUser;
+  updateMovie: (id: number, newMovie: NewMovie) => Promise<void>;
 }
 
 interface User {

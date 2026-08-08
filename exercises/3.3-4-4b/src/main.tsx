@@ -10,6 +10,7 @@ import AddMoviePage from './components/Pages/AddMoviePage'
 import MoviePage from './components/Pages/MoviePage'
 import RegisterPage from './components/Pages/RegisterPage'
 import LoginPage from './components/Pages/LoginPage'
+import EditMoviePage from './components/Pages/EditMoviePage'
 
 
 const router = createBrowserRouter([
@@ -42,8 +43,12 @@ const router = createBrowserRouter([
     element: <RegisterPage/>
   },
   {
-    path: "login",
+    path: "/login",
     element: <LoginPage />
+  },
+  {
+    path: "/update/:id",
+    element: <EditMoviePage />
   }
     ]
   }
